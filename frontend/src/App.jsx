@@ -1,21 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { Context } from './context/GlobalState';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
-  const { handleChangeTheme, theme } = useContext(Context);
   return (
-    <div className='bg-base-200 dark:bg-base-800'>
-      <button
-        onClick={handleChangeTheme}
-        className='bg-secondary-400 dark:bg-primary-500'
-      >
-        {theme === 'dark' ? (
-          <span>Cambiar a claro</span>
-        ) : (
-          <span>Cambiar a obscuro</span>
-        )}
-      </button>
+    <div className='min-h-screen w-full flex flex-col bg-base-100 text-base-800 dark:bg-base-900 dark:text-base-100'>
+      <Navbar />
+      <div>App</div>
     </div>
   );
 }
