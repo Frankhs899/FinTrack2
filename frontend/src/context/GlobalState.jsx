@@ -1,36 +1,33 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useMemo } from 'react';
 
 export const Context = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      return storedTheme;
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
+    if (storedTheme) return storedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
   });
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.querySelector('html').classList.add('dark');
-    } else {
-      document.querySelector('html').classList.remove('dark');
-    }
+    const root = document.documentElement;
+    root.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const handleChangeTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  return (
-    <Context.Provider value={{ theme, handleChangeTheme }}>
-      {children}
-    </Context.Provider>
+  const contextValue = useMemo(
+    () => ({
+      theme,
+      handleChangeTheme,
+    }),
+    [theme]
   );
+
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
