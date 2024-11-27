@@ -7,7 +7,7 @@ import Income from '../../pages/income/Income';
 
 function Container() {
   return (
-    <main className='flex flex-grow min-h-full p-4'>
+    <main className='flex flex-grow w-full max-w-screen-xl min-h-full mx-auto p-4'>
       <Routes>
         <Route
           path='/'
