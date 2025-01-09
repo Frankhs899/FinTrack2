@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         base: {
+          50: '#ffffff',
           100: '#e8e8ed',
           200: '#d2d2db',
           300: '#bbbbc8',

@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { ThemeContext } from './context/ThemeContext';
+import Drawer from './components/drawer/Drawer';
 
 function App() {
   const { theme, handleChangeTheme } = useContext(ThemeContext);
   return (
-    <div className='bg-primary-500 dark:bg-secondary-500 font-[Inter]'>
-      <h1>App</h1>
-      <button onClick={handleChangeTheme}>Cambiar tema</button>
+    <div className='w-full min-h-screen font-[Inter]'>
+      <Drawer />
     </div>
   );
 }
